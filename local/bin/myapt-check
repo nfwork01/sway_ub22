@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+updates=$(/usr/lib/update-notifier/apt-check 2>&1)
+
+if [ "${updates}" == "0;0" ]; then
+  printf "No Updates\n"
+else
+  printf "<span color='red'>Security;All: ${updates}</span>\n"
+fi

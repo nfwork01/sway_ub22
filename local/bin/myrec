@@ -1,0 +1,54 @@
+#!/bin/bash
+dname='${HOME}/screenshot'
+snapflag='/tmp/screen_capture_frag'
+
+function show () {
+  if [ -e "${snapflag}" ]; then
+    echo "***Recording***"
+  fi
+}
+
+function stop_rec () {
+  pid=$(cat ${snapflag})
+  kill -9 ${pid}
+  rm "${snapflag}"
+}
+
+function rec () {
+  if [ ! -e "${dname}" ]; then
+    mkdir -p "${dname}"
+  fi
+
+  fname=${dname}/$(date "+%Y%m%d_%H%M.mp4")
+
+  wf-recorder -f ${fname} -g "$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp)" >/dev/null 2>&1 &
+  echo $! > ${snapflag}
+}
+
+function run () {
+  if [ -e "${snapflag}" ]; then
+    stop_rec
+  else
+    rec
+  fi
+  pkill -SIGRTMIN+11 i3blocks
+}
+
+while getopts sk OPT
+do
+  case $OPT in
+    "s" ) STATUS="TRUE" ;;
+    "k" ) KILL="TRUE" ;;
+      * ) help ;;
+  esac
+done
+
+if [ "${STATUS}" = "TRUE" ]; then
+  show
+elif [ "${KILL}" = "TRUE" ]; then
+  if [ -e "${snapflag}" ]; then
+    stop_rec
+  fi
+else
+  run
+fi

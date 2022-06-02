@@ -1,0 +1,9 @@
+UPDATES=$(/usr/lib/update-notifier/apt-check 2>&1)
+
+if [ "$UPDATES" == "0;0" ]; then
+  sway >> $HOME/sway.log 2>&1
+else
+  sudo apt update
+  sudo apt dist-upgrade -y
+  sudo shutdown -r now
+fi

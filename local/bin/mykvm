@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+kvmexist=$(which virsh > /dev/null 2>&1; echo $?)
+
+if [ "${kvmexist}" == 0 ]; then
+  #vms=$(expr $(virsh -q list --state-running | wc -l))
+  vms=$(expr $( bash -c "virsh -q list --state-running" | wc -l))
+  if [ "${vms}" == 0 ]; then
+    printf "Not running\n"
+  else
+    printf "<span color='red'>${vms} running</span>\n"
+  fi
+else
+  printf 'KVM not exist\n'
+fi
