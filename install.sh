@@ -47,7 +47,9 @@ sudo apt install qemu-system-x86 libvirt-clients libvirt-daemon-system bridge-ut
 
 # Configurations
 mkdir -p ~/.config/sway
+mkdir -p ~/.config/i3blocks
 mkdir -p ~/.local/bin
 
 cp ./config/sway/config ~/.config/sway/
+cp ./config/i3blocks/config ~/.config/i3blocks/
 cp ./local/bin/* ~/.local/bin/

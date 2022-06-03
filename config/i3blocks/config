@@ -1,0 +1,75 @@
+command=$SCRIPT_PATH/$BLOCK_NAME/$BLOCK_NAME
+separator_block_width=15
+markup=none
+
+# Record Mode
+[recorder]
+command=$LOCALBIN/myrec -s
+signal=11
+
+# APT Update
+[myapt-check]
+command=$LOCALBIN/myapt-check
+interval=600
+markup=pango
+
+# Running VMS
+#[mykvm]
+#label=KVM
+#command=$LOCALBIN/mykvm
+#interval=30
+#markup=pango
+
+# Volume indicator
+[volume]
+label=♪
+interval=once
+signal=10
+
+# Memory usage
+[memory]
+label=MEM
+separator=false
+interval=30
+
+[memory]
+label=SWAP
+instance=swap
+separator=false
+interval=30
+
+# Disk usage
+[disk]
+label=HOME
+interval=30
+
+# Network interface monitoring
+[iface]
+color=#00FF00
+interval=10
+separator=false
+
+[iface]
+command=$SCRIPT_PATH/iface/iface -6
+color=#00FF00
+interval=10
+separator=false
+
+[bandwidth]
+command=$LOCALBIN/bandwidth
+interval=5
+
+# CPU usage
+[cpu_usage]
+label=CPU
+interval=10
+min_width=CPU 100.00%
+
+[load_average]
+label=LOAD
+interval=10
+
+# Date Time
+[time]
+command=date '+%Y-%m-%d %H:%M:%S'
+interval=5
