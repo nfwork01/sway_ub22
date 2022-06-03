@@ -136,12 +136,8 @@ bar {
 }
 
 ### Output configuration
-output * bg /home/hogemin/img/sway_background.png fill
-#output DVI-D-1 pos 1280 720 res 2560x1440
-#output HDMI-A-3 pos 3840 0 res 3840x2160
-#output HDMI-A-1 pos 3840 2160 res 2560x1440
-output HDMI-A-3 pos 0 0 res 2560x1440
-output HDMI-A-1 pos 0 1440 res 2560x1440
+#output * bg $HOME/img/sway_background.png fill
+#output HDMI-A-1 pos 0 1440 res 2560x1440
 
 ### Keyboard, Language
     input type:keyboard {
